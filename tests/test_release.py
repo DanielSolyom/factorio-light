@@ -1,9 +1,11 @@
 """Release integrity must fail closed before any network publication."""
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,9 +19,21 @@ def module(name):
 
 build = module("build").build
 verified_archive = module("publish").verified_archive
+api_key = module("publish").api_key
 
 
 class ReleaseIntegrity(unittest.TestCase):
+    def test_api_key_trims_copy_paste_whitespace(self):
+        with patch.dict(os.environ, {"FACTORIO_API_KEY": " \r\nexample-key\n\t"}):
+            self.assertEqual(api_key(), "example-key")
+
+    def test_malformed_api_key_error_does_not_disclose_value(self):
+        for value in ("", " \n", "example-key\nsecond-line", "Bearer example-key", "example-key\x01"):
+            with self.subTest(value=value), patch.dict(os.environ, {"FACTORIO_API_KEY": value}):
+                with self.assertRaises(ValueError) as raised:
+                    api_key()
+                self.assertNotIn("example-key", str(raised.exception))
+
     def test_archive_is_reproducible(self):
         first = build().read_bytes()
         second = build().read_bytes()

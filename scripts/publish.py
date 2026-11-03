@@ -19,6 +19,13 @@ ROOT = Path(__file__).resolve().parents[1]
 API = "https://mods.factorio.com/api"
 
 
+def api_key():
+    token = os.environ.get("FACTORIO_API_KEY", "").strip()
+    if not token or any(ord(char) < 33 or ord(char) > 126 for char in token):
+        raise ValueError("FACTORIO_API_KEY must contain only the API key value, without internal whitespace or control characters")
+    return token
+
+
 def request(url, fields=None, token=None, file=None):
     headers = {"User-Agent": "Factorio-Light-release/1.0"}
     if token:
@@ -75,7 +82,7 @@ def verified_archive(path, report_path):
 
 def publish(path, report_path):
     info = verified_archive(path, report_path)
-    token = os.environ["FACTORIO_API_KEY"]
+    token = api_key()
     config = json.loads((ROOT / "portal.json").read_text())
     try:
         existing = request(f"{API}/mods/{info['name']}/full")
@@ -112,6 +119,7 @@ def publish(path, report_path):
 
 if __name__ == "__main__":
     if sys.argv[1:] == ["--preflight"]:
+        token = api_key()
         info = json.loads((ROOT / "factorio-light/info.json").read_text())
         try:
             request(f"{API}/mods/{info['name']}/full")
@@ -120,7 +128,7 @@ if __name__ == "__main__":
             if not str(error).startswith("Mod Portal returned HTTP 404"):
                 raise
             endpoint = "init_publish"
-        result = request(f"{API}/v2/mods/{endpoint}", [("mod", info["name"])], os.environ["FACTORIO_API_KEY"])
+        result = request(f"{API}/v2/mods/{endpoint}", [("mod", info["name"])], token)
         assert "upload_url" in result
         print("Mod Portal upload authorization verified")
     else:
