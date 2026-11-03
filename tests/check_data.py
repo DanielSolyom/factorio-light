@@ -126,7 +126,14 @@ for name, recipe in mod["recipe"].items():
     assert not recipe.get("surface_conditions") and not reverse.get("surface_conditions")
     fluids.add(fluid["name"])
     barrels += 1
-assert fluids == {n for n, f in mod["fluid"].items() if not f.get("parameter") and n != "fluid-unknown"}
+assert fluids == {n for n, f in mod["fluid"].items() if not f.get("parameter") and n not in {"fluid-unknown", "steam", "fusion-plasma"}}
+
+assert barrels == 20
+for fluid in ("steam", "fusion-plasma"):
+    assert mod["fluid"][fluid].get("auto_barrel") == base["fluid"][fluid].get("auto_barrel")
+    assert not any(fluid in name and name.endswith("-barrel") for name in items)
+for name in ("assembling-machine-2", "assembling-machine-3"):
+    assert mod["assembling-machine"][name]["fluid_boxes"] == base["assembling-machine"][name]["fluid_boxes"], name
 
 # Bootstrap: yumako unlocks processing and the hand-craftable nutrient recipe.
 assert "crafting" in mod["recipe"]["nutrients-from-yumako-mash"]["categories"]

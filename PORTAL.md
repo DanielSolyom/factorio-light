@@ -49,16 +49,22 @@ Inserters still access a platform through its main hub. Factorio 2.1's cargo-bay
 unloading flag applies to planetary landing pads and does not enable platform
 bay loading or unloading. No scripted inventory proxy is added.
 
-Every real vanilla fluid can be barrelled and emptied, on planets or platforms:
-**33 recipe pairs across 22 fluids**. That includes molten metals, lava, ammonia,
-fluorine, electrolyte, holmium solution, lithium brine, thruster fluids and plasma.
+Barrel and empty **20 fluids** on planets or platforms: every real vanilla fluid
+except steam and fusion plasma. This includes water, thruster fuel, thruster
+oxidizer, molten metals, lava, ammonia, fluorine and the other planetary fluids.
 
-Barrels hold 50 fluid and return the empty barrel. They have no productivity
-bonus. Steam recipes cover 15, 165 and 500 °C; plasma recipes cover 1–10 million
-°C in one-million-degree steps. Inputs must match the labelled temperature,
-so a barrel cannot manufacture free heat. Mixed intermediate temperatures need
-to be kept out of these lines. Plasma assemblers connect directly to native
-fusion ports.
+Supply one platform from another: fill water, thruster fuel or thruster oxidizer
+barrels and insert them into the supplying hub. Enable **Provide materials to
+other platforms** there, then request the filled barrels from **platforms** in
+the receiving hub. Both platforms must be in the same orbit with unloading
+allowed; avoid requesting those same filled barrels from platforms on the supplier.
+Empty the delivered barrels in assemblers. To reuse them, enable providing on
+the receiver too and request empty barrels back at the supplier. This uses
+Factorio 2.1's native platform transfers.
+
+Each barrel holds 50 fluid and returns the empty barrel. Filling and emptying
+have no productivity bonus and preserve each fluid's default temperature.
+Steam and fusion plasma keep their vanilla transport rules.
 
 ## Load, unload, build
 

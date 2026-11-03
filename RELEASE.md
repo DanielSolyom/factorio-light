@@ -1,12 +1,12 @@
 Less grind. More factory.
 
-Version 1.0.2 limits platform chest placement to steel chests. Wooden, iron and
-logistic chests retain vanilla placement restrictions. Platform railways remain
-available, including elevated rails and all wagon types.
+Version 1.0.3 removes steam and fusion-plasma barrels. The other 20 fluids remain
+barrelable on platforms, including water, thruster fuel and thruster oxidizer
+for native platform-to-platform supply.
 
 - Fixed legendary stats with Quality disabled and normal enemy/world stats.
 - No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.
-- Platform steel chests, railways and temperature-safe barrels for all 22 fluids.
+- Platform steel chests, railways and barrels for 20 fluids (excluding steam and fusion plasma).
 - Four native 1×1 loaders at their matching splitter research.
 - A submachine gun and 100 yellow magazines at freeplay start and respawn.
 

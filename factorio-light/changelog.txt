@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 2026-11-03
+  Changes:
+    - Removed steam and fusion-plasma barrels and restored vanilla assembler fluid connections.
+    - Retained platform filling and emptying for the other 20 fluids, including water, thruster fuel and thruster oxidizer.
+  Testing:
+    - Added native platform-to-platform barrel supply and empty-barrel return coverage.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 2026-11-03
   Changes:

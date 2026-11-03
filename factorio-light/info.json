@@ -1,9 +1,9 @@
 {
   "name": "factorio-light-space-age",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "title": "Factorio Light: Space Age",
   "author": "DanielSolyom",
-  "description": "Less grind. More factory. Fixed legendary machinery without Quality, no spoilage, deliberate Gleba production, every fluid in barrels, platform steel chests, trains and compact loaders.",
+  "description": "Less grind. More factory. Fixed legendary machinery without Quality, no spoilage, deliberate Gleba production, fluid barrels for orbital supply, platform steel chests, trains and compact loaders.",
   "factorio_version": "2.1",
   "dependencies": [
     "base >= 2.1.24",
