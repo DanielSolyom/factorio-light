@@ -20,10 +20,29 @@ local function configure_freeplay()
   end
 end
 
+local load_starter_ammo = require("scripts.starter-equipment")
+local function equip_starter_ammo(player)
+  if not remote.interfaces.freeplay then return end
+  storage.pending_starter_ammo = storage.pending_starter_ammo or {}
+  storage.pending_starter_ammo[player.index] = not load_starter_ammo(player) or nil
+end
+
 script.on_init(configure_freeplay)
 script.on_configuration_changed(function()
   configure_freeplay()
   for _, force in pairs(game.forces) do
     force.recipes["submachine-gun"].enabled = true
+  end
+  -- Repair older saves without granting items or replacing equipped ammunition.
+  for _, player in pairs(game.players) do equip_starter_ammo(player) end
+end)
+
+script.on_event({defines.events.on_player_created, defines.events.on_player_respawned}, function(event)
+  equip_starter_ammo(game.get_player(event.player_index))
+end)
+
+script.on_event(defines.events.on_player_joined_game, function(event)
+  if storage.pending_starter_ammo and storage.pending_starter_ammo[event.player_index] then
+    equip_starter_ammo(game.get_player(event.player_index))
   end
 end)

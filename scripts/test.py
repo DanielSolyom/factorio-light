@@ -79,6 +79,13 @@ if __name__ == "__main__":
     scenario(modded, "freeplay-check", "freeplay.lua")
     freeplay_output = run(modded, "freeplay-run", "--benchmark", modded / "data/saves/freeplay-check.zip", "--benchmark-ticks", "2", "--benchmark-runs", "1")
     assert "FACTORIO LIGHT FREEPLAY PASSED" in freeplay_output
+    starter = environment("starter-equipment", mod=True)
+    target = starter / "data/scenarios/starter-equipment"
+    target.mkdir()
+    shutil.copy2(ROOT / "tests/starter-equipment.lua", target / "control.lua")
+    output = run(starter, "starter-equipment", "--test-scenario", "starter-equipment", "--test-ticks", "200")
+    assert "FACTORIO LIGHT STARTER EQUIPMENT PASSED" in output, output[-4000:]
+    print("PASS: real-player starting/respawn ammo slots and inventory repair", flush=True)
     for path in [legendary, modded]:
         fixture = path / "mods/player-fixture"
         fixture.mkdir()
@@ -130,7 +137,7 @@ if __name__ == "__main__":
               "status": "passed", "duration_seconds": round(time.monotonic() - started, 2),
               "checks": ["prototype-load", "legendary-reference", "world-invariants", "technology-graph",
                          "removed-items", "barrel-conservation", "gleba-bootstrap", "native-loader-transfer",
-                         "platform-chests", "platform-placement-restrictions", "platform-fluid-supply", "no-spoilage", "freeplay-configuration", "quality-conflict",
+                         "platform-chests", "platform-placement-restrictions", "platform-fluid-supply", "no-spoilage", "freeplay-configuration", "starter-equipment", "quality-conflict",
                          "equipment-inventories", "combat-mining-research-reference", "food-and-status-effects", "cargo-bay-native-limit"]}
     (ROOT / "dist/qa-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

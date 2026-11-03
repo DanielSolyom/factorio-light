@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 2026-11-03
+  Bugfixes:
+    - Loaded starting and respawn yellow ammo into the submachine gun's ammo slot instead of leaving it in the backpack.
+    - Existing saves move carried yellow ammo into an empty SMG ammo slot when updated, without creating items or replacing equipped ammo.
+  Testing:
+    - Added real-player freeplay checks for equipped ammo, respawn and existing-player inventory repair.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.4
 Date: 2026-11-03
   Changes:

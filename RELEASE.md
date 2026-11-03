@@ -1,8 +1,9 @@
 Less grind. More factory.
 
-Version 1.0.4 restores vanilla platform restrictions for trains, wagons, rails,
-signals and train stops. Steel chests and fluid barreling remain available on
-platforms. The Mod Portal page has also been rewritten for players.
+Version 1.0.5 fixes starting ammunition landing in the backpack. New players and
+respawns now have their 100 yellow magazines loaded beside the submachine gun.
+Updating an existing save moves carried yellow ammo into an empty SMG ammo slot;
+it does not grant extra ammo or replace ammunition already equipped.
 
 - Fixed legendary stats with Quality disabled and normal enemy/world stats.
 - No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.

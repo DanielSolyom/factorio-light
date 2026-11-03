@@ -42,7 +42,8 @@ baseline, and a separate legendary-quality reference.
 CI checks prototype invariants, technology reachability, recipe inputs,
 legendary stats, equipment, combat, mining, science consumption, platform
 storage and placement restrictions, loader transfers, barrel conservation,
-native platform-to-platform fluid supplies and freeplay starter settings.
+native platform-to-platform fluid supplies, freeplay starter settings and
+real-player starting/respawn ammunition slots.
 The ZIP, SHA-256 and QA report are produced in `dist/`.
 
 To publish, run the Release workflow with the manifest version after CI passes.
