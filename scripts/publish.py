@@ -6,6 +6,7 @@ Uses the official Mod Portal publish/upload/details APIs and Python's stdlib.
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import sys
 import urllib.error
@@ -42,7 +43,17 @@ def request(url, fields=None, token=None, file=None):
             result = json.load(response)
     except urllib.error.HTTPError as error:
         # HTTP status is useful; the request URL may contain an upload secret.
-        raise RuntimeError(f"Mod Portal returned HTTP {error.code}") from None
+        try:
+            details = json.load(error)
+        except (ValueError, UnicodeDecodeError):
+            details = {}
+        message = str(details.get("message", ""))
+        if token:
+            message = message.replace(token, "[redacted]")
+        message = re.sub(r"https?://\S+", "[redacted URL]", message)
+        code = details.get("error", "")
+        suffix = f": {code} {message}" if code or message else ""
+        raise RuntimeError(f"Mod Portal returned HTTP {error.code}{suffix}") from None
     if result.get("error"):
         raise RuntimeError(f"Mod Portal API error: {result['error']}")
     return result
@@ -69,7 +80,7 @@ def publish(path, report_path):
     try:
         existing = request(f"{API}/mods/{info['name']}/full")
     except RuntimeError as error:
-        if str(error) != "Mod Portal returned HTTP 404":
+        if not str(error).startswith("Mod Portal returned HTTP 404"):
             raise
         existing = None
     releases = existing.get("releases", []) if existing else []
@@ -100,4 +111,17 @@ def publish(path, report_path):
 
 
 if __name__ == "__main__":
-    publish(Path(sys.argv[1]), Path(sys.argv[2]))
+    if sys.argv[1:] == ["--preflight"]:
+        info = json.loads((ROOT / "factorio-light/info.json").read_text())
+        try:
+            request(f"{API}/mods/{info['name']}/full")
+            endpoint = "releases/init_upload"
+        except RuntimeError as error:
+            if not str(error).startswith("Mod Portal returned HTTP 404"):
+                raise
+            endpoint = "init_publish"
+        result = request(f"{API}/v2/mods/{endpoint}", [("mod", info["name"])], os.environ["FACTORIO_API_KEY"])
+        assert "upload_url" in result
+        print("Mod Portal upload authorization verified")
+    else:
+        publish(Path(sys.argv[1]), Path(sys.argv[2]))
