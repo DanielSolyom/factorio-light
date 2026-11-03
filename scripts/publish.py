@@ -9,6 +9,7 @@ import os
 import re
 from pathlib import Path
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -89,13 +90,23 @@ def update_details(name, token):
     fields += [("description", description)]
     fields += [("tags", tag) for tag in config["tags"]]
     assert request(f"{API}/v2/mods/edit_details", fields, token).get("success"), "Page update failed"
-    remote = request(f"{API}/mods/{name}/full")
-    assert remote["description"].strip() == description.strip(), "Published description differs"
-    for key in keys:
-        actual = remote["license"]["id"] if key == "license" else remote[key]
-        assert actual == config[key], f"Published {key} differs"
-    assert set(remote["tags"]) == set(config["tags"]), "Published tags differ"
-    return remote
+    # The public API may briefly serve the previous page after a successful edit.
+    for attempt in range(5):
+        remote = request(f"{API}/mods/{name}/full")
+        mismatches = []
+        if remote["description"].strip() != description.strip():
+            mismatches.append("description")
+        for key in keys:
+            actual = remote["license"]["id"] if key == "license" else remote[key]
+            if actual != config[key]:
+                mismatches.append(key)
+        if set(remote["tags"]) != set(config["tags"]):
+            mismatches.append("tags")
+        if not mismatches:
+            return remote
+        if attempt < 4:
+            time.sleep(2 ** attempt)
+    raise AssertionError("Published page differs: " + ", ".join(mismatches))
 
 
 def publish(path, report_path):

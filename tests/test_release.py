@@ -18,11 +18,33 @@ def module(name):
 
 
 build = module("build").build
-verified_archive = module("publish").verified_archive
-api_key = module("publish").api_key
+publisher = module("publish")
+verified_archive = publisher.verified_archive
+api_key = publisher.api_key
 
 
 class ReleaseIntegrity(unittest.TestCase):
+    def portal_details(self):
+        config = json.loads((ROOT / "portal.json").read_text())
+        return {**config, "license": {"id": config["license"]},
+                "description": (ROOT / config["description_file"]).read_text()}
+
+    def test_page_verification_waits_for_cached_description(self):
+        expected = self.portal_details()
+        stale = {**expected, "description": "Previous description"}
+        with patch.object(publisher, "request", side_effect=[{"success": True}, stale, expected]) as request, \
+                patch.object(publisher.time, "sleep"):
+            self.assertEqual(publisher.update_details("factorio-light-space-age", "example-key"), expected)
+            writes = [call for call in request.call_args_list if len(call.args) > 1]
+            self.assertEqual(len(writes), 1, "Verification must not repeat the write")
+
+    def test_page_verification_rejects_persistent_mismatch(self):
+        stale = {**self.portal_details(), "description": "Previous description"}
+        with patch.object(publisher, "request", side_effect=[{"success": True}] + [stale] * 5), \
+                patch.object(publisher.time, "sleep"):
+            with self.assertRaisesRegex(AssertionError, "Published page differs: description"):
+                publisher.update_details("factorio-light-space-age", "example-key")
+
     def test_api_key_trims_copy_paste_whitespace(self):
         with patch.dict(os.environ, {"FACTORIO_API_KEY": " \r\nexample-key\n\t"}):
             self.assertEqual(api_key(), "example-key")
