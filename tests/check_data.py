@@ -53,8 +53,8 @@ for name, recipe in base["recipe"].items():
     if name in mod["recipe"]:
         assert recipe.get("surface_conditions") == mod["recipe"][name].get("surface_conditions"), name
 
-# Only ordinary chests and vanilla railway entities lose placement conditions.
-platform_entities = {"wooden-chest", "iron-chest", "steel-chest",
+# Only steel chests and vanilla railway entities lose placement conditions.
+platform_entities = {"steel-chest",
     "straight-rail", "half-diagonal-rail", "curved-rail-a", "curved-rail-b",
     "rail-ramp", "rail-support", "elevated-straight-rail", "elevated-half-diagonal-rail",
     "elevated-curved-rail-a", "elevated-curved-rail-b", "locomotive", "cargo-wagon",

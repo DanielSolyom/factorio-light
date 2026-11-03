@@ -38,8 +38,8 @@ Living captive spawners still need food; pentapod enemies still attack.
 
 ## Give your platforms some room
 
-Wooden, iron and steel chests can be built on platforms. Logistic chests and
-roboports retain their normal restrictions.
+Steel chests can be built on platforms. Wooden, iron and logistic chests, along
+with roboports, retain their normal restrictions.
 
 Build an orbital railway: locomotives, cargo/fluid/artillery wagons, train stops,
 signals, ground rails and elevated rails are allowed, including ramps and supports.

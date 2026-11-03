@@ -1,12 +1,12 @@
 Less grind. More factory.
 
-Version 1.0.1 allows full railways on platforms, including elevated rails and all
-wagon types. Platform chest support is limited to wooden, iron and steel chests;
-logistic chests retain vanilla placement restrictions.
+Version 1.0.2 limits platform chest placement to steel chests. Wooden, iron and
+logistic chests retain vanilla placement restrictions. Platform railways remain
+available, including elevated rails and all wagon types.
 
 - Fixed legendary stats with Quality disabled and normal enemy/world stats.
 - No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.
-- Ordinary platform chests, railways and temperature-safe barrels for all 22 fluids.
+- Platform steel chests, railways and temperature-safe barrels for all 22 fluids.
 - Four native 1×1 loaders at their matching splitter research.
 - A submachine gun and 100 yellow magazines at freeplay start and respawn.
 

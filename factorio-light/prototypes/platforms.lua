@@ -1,9 +1,7 @@
--- Ordinary storage and the complete vanilla railway work on platforms.
-data.raw.container["wooden-chest"].surface_conditions = nil
-data.raw.container["iron-chest"].surface_conditions = nil
+-- Steel chests and the complete vanilla railway work on platforms.
 data.raw.container["steel-chest"].surface_conditions = nil
 
--- Keep these overrides explicit; logistic chests retain vanilla restrictions.
+-- Keep these overrides explicit; other chests retain vanilla restrictions.
 data.raw["straight-rail"]["straight-rail"].surface_conditions = nil
 data.raw["half-diagonal-rail"]["half-diagonal-rail"].surface_conditions = nil
 data.raw["curved-rail-a"]["curved-rail-a"].surface_conditions = nil
