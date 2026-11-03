@@ -26,7 +26,13 @@ script.on_init(function()
     "buffer-chest", "requester-chest"}) do
     assert(not surface.can_place_entity{name = name, position = {40, 40}, force = force}, name)
   end
-  assert(not surface.can_place_entity{name = "roboport", position = {40, 40}, force = force})
+  for _, name in ipairs({"roboport", "straight-rail", "half-diagonal-rail", "curved-rail-a",
+    "curved-rail-b", "rail-ramp", "rail-support", "elevated-straight-rail",
+    "elevated-half-diagonal-rail", "elevated-curved-rail-a", "elevated-curved-rail-b",
+    "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon", "train-stop",
+    "rail-signal", "rail-chain-signal"}) do
+    assert(not surface.can_place_entity{name = name, position = {40, 40}, force = force}, name)
+  end
   for i, suffix in ipairs({"loader", "fast-loader", "express-loader", "turbo-loader"}) do
     local y = 25 + i*3
     local source = spawn(surface, "steel-chest", 0, y)

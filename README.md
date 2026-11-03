@@ -7,9 +7,9 @@ A focused Factorio: Space Age mod for more building and less repetition.
 - Fixed legendary benefits, with Quality disabled: no tiers, badges or modules.
 - Nothing spoils. Hand-craft nutrients from yumako mash, incubate bacteria,
   and isolate iron and copper deliberately.
-- Build steel chests, plus trains and rails, on platforms.
-  Wooden, iron and logistic chests retain their normal restrictions. Barrel all fluids except steam and fusion plasma, including water, thruster
-  fuel and oxidizer for platform-to-platform supply.
+- Build steel chests on platforms. Other chests and railways retain vanilla
+  placement restrictions. Barrel all fluids except steam and fusion plasma,
+  including water, thruster fuel and oxidizer for platform-to-platform supply.
 - Four compact Krastorio-style loaders, unlocked alongside their splitters.
 - Start and respawn with a submachine gun and 100 yellow magazines. No pistol.
 
@@ -41,10 +41,14 @@ baseline, and a separate legendary-quality reference.
 
 CI checks prototype invariants, technology reachability, recipe inputs,
 legendary stats, equipment, combat, mining, science consumption, platform
-storage, automatic trains, loader transfers, barrel conservation, native platform-to-platform fluid supplies and freeplay starter settings.
+storage and placement restrictions, loader transfers, barrel conservation,
+native platform-to-platform fluid supplies and freeplay starter settings.
 The ZIP, SHA-256 and QA report are produced in `dist/`.
 
 To publish, run the Release workflow with the manifest version after CI passes.
 It tests the package before uploading that exact archive to GitHub and the Mod
 Portal. The `FACTORIO_API_KEY` Actions secret needs Publish Mods, Upload Mods and
 Edit Mods permissions. It is never written to the archive or source tree.
+
+For description and summary edits, use the Update Mod Portal page workflow.
+It updates and verifies the listing without uploading a new mod version.

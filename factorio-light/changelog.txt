@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 2026-11-03
+  Changes:
+    - Restored vanilla placement restrictions for trains, wagons, ground and elevated rails, stops and signals on space platforms.
+    - Steel chests and fluid barreling remain available on platforms.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 2026-11-03
   Changes:

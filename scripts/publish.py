@@ -80,6 +80,24 @@ def verified_archive(path, report_path):
     return info
 
 
+def update_details(name, token):
+    config = json.loads((ROOT / "portal.json").read_text())
+    description = (ROOT / config["description_file"]).read_text()
+    fields = [("mod", name)]
+    keys = ["title", "summary", "category", "license", "homepage", "source_url"]
+    fields += [(key, config[key]) for key in keys]
+    fields += [("description", description)]
+    fields += [("tags", tag) for tag in config["tags"]]
+    assert request(f"{API}/v2/mods/edit_details", fields, token).get("success"), "Page update failed"
+    remote = request(f"{API}/mods/{name}/full")
+    assert remote["description"].strip() == description.strip(), "Published description differs"
+    for key in keys:
+        actual = remote["license"]["id"] if key == "license" else remote[key]
+        assert actual == config[key], f"Published {key} differs"
+    assert set(remote["tags"]) == set(config["tags"]), "Published tags differ"
+    return remote
+
+
 def publish(path, report_path):
     info = verified_archive(path, report_path)
     token = api_key()
@@ -106,19 +124,18 @@ def publish(path, report_path):
         release = next(r for r in releases if r["version"] == info["version"])
         assert release.get("sha1") == hashlib.sha1(path.read_bytes()).hexdigest(), "Portal version already exists with a different archive"
         print("Identical version already uploaded; synchronizing page")
-    fields = [("mod", info["name"])]
-    fields += [(k, config[k]) for k in ["title", "summary", "category", "license", "homepage", "source_url"]]
-    fields += [("description", (ROOT / config["description_file"]).read_text())]
-    fields += [("tags", tag) for tag in config["tags"]]
-    assert request(f"{API}/v2/mods/edit_details", fields, token).get("success"), "Page update failed"
-    remote = request(f"{API}/mods/{info['name']}/full")
+    remote = update_details(info["name"], token)
     release = next(r for r in remote["releases"] if r["version"] == info["version"])
     assert release["sha1"] == hashlib.sha1(path.read_bytes()).hexdigest(), "Published archive differs"
     print(f"Verified https://mods.factorio.com/mod/{info['name']}")
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["--preflight"]:
+    if sys.argv[1:] == ["--details-only"]:
+        info = json.loads((ROOT / "factorio-light/info.json").read_text())
+        update_details(info["name"], api_key())
+        print(f"Verified updated page: https://mods.factorio.com/mod/{info['name']}")
+    elif sys.argv[1:] == ["--preflight"]:
         token = api_key()
         info = json.loads((ROOT / "factorio-light/info.json").read_text())
         try:
