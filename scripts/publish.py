@@ -81,6 +81,11 @@ def verified_archive(path, report_path):
     return info
 
 
+def mod_details(name):
+    # Public responses can be cached beyond the page-edit verification window.
+    return request(f"{API}/mods/{name}/full?verification={uuid.uuid4().hex}")
+
+
 def update_details(name, token):
     config = json.loads((ROOT / "portal.json").read_text())
     description = (ROOT / config["description_file"]).read_text()
@@ -92,7 +97,7 @@ def update_details(name, token):
     assert request(f"{API}/v2/mods/edit_details", fields, token).get("success"), "Page update failed"
     # The public API may briefly serve the previous page after a successful edit.
     for attempt in range(5):
-        remote = request(f"{API}/mods/{name}/full")
+        remote = mod_details(name)
         mismatches = []
         if remote["description"].strip() != description.strip():
             mismatches.append("description")
@@ -114,7 +119,7 @@ def publish(path, report_path):
     token = api_key()
     config = json.loads((ROOT / "portal.json").read_text())
     try:
-        existing = request(f"{API}/mods/{info['name']}/full")
+        existing = mod_details(info["name"])
     except RuntimeError as error:
         if not str(error).startswith("Mod Portal returned HTTP 404"):
             raise
@@ -150,7 +155,7 @@ if __name__ == "__main__":
         token = api_key()
         info = json.loads((ROOT / "factorio-light/info.json").read_text())
         try:
-            request(f"{API}/mods/{info['name']}/full")
+            mod_details(info["name"])
             endpoint = "releases/init_upload"
         except RuntimeError as error:
             if not str(error).startswith("Mod Portal returned HTTP 404"):
