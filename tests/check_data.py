@@ -53,6 +53,24 @@ for name, recipe in base["recipe"].items():
     if name in mod["recipe"]:
         assert recipe.get("surface_conditions") == mod["recipe"][name].get("surface_conditions"), name
 
+# Only ordinary chests and vanilla railway entities lose placement conditions.
+platform_entities = {"wooden-chest", "iron-chest", "steel-chest",
+    "straight-rail", "half-diagonal-rail", "curved-rail-a", "curved-rail-b",
+    "rail-ramp", "rail-support", "elevated-straight-rail", "elevated-half-diagonal-rail",
+    "elevated-curved-rail-a", "elevated-curved-rail-b", "locomotive", "cargo-wagon",
+    "fluid-wagon", "artillery-wagon", "train-stop", "rail-signal", "rail-chain-signal"}
+for kind, values in base.items():
+    if kind in {"recipe", "item", "rail-planner"}:
+        continue
+    for name, original in values.items():
+        if name not in mod.get(kind, {}):
+            continue
+        conditions = mod[kind][name].get("surface_conditions")
+        if name in platform_entities:
+            assert not conditions, (kind, name)
+        else:
+            assert conditions == original.get("surface_conditions"), (kind, name)
+
 # Scope is derived from vanilla player-placeable entities, not the mod's table.
 placed = {v["place_result"] for values in base.values() for v in values.values()
           if v.get("place_result") and not v.get("hidden")}

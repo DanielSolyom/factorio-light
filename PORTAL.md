@@ -38,9 +38,12 @@ Living captive spawners still need food; pentapod enemies still attack.
 
 ## Give your platforms some room
 
-Wooden, iron, steel and all five logistic chest types can be built on platforms.
-Logistic chests provide storage there; roboports and flying logistics retain
-their normal restrictions.
+Wooden, iron and steel chests can be built on platforms. Logistic chests and
+roboports retain their normal restrictions.
+
+Build an orbital railway: locomotives, cargo/fluid/artillery wagons, train stops,
+signals, ground rails and elevated rails are allowed, including ramps and supports.
+Trains use their normal fuel, schedules and railway rules.
 
 Inserters still access a platform through its main hub. Factorio 2.1's cargo-bay
 unloading flag applies to planetary landing pads and does not enable platform

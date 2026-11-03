@@ -71,6 +71,11 @@ if __name__ == "__main__":
                  "--benchmark-ticks", "3601", "--benchmark-runs", "1")
     assert "FACTORIO LIGHT GAMEPLAY PASSED" in output, output[-4000:]
     print("PASS: actual crafting, platform storage, loaders and no-spoil inventories", flush=True)
+    scenario(modded, "platform-trains", "platform-trains.lua")
+    output = run(modded, "platform-trains-run", "--benchmark", modded / "data/saves/platform-trains.zip",
+                 "--benchmark-ticks", "3601", "--benchmark-runs", "1")
+    assert "FACTORIO LIGHT PLATFORM TRAINS PASSED" in output, output[-4000:]
+    print("PASS: native platform train placement, schedules, fuel and cargo", flush=True)
     scenario(modded, "freeplay-check", "freeplay.lua")
     freeplay_output = run(modded, "freeplay-run", "--benchmark", modded / "data/saves/freeplay-check.zip", "--benchmark-ticks", "2", "--benchmark-runs", "1")
     assert "FACTORIO LIGHT FREEPLAY PASSED" in freeplay_output
@@ -125,7 +130,7 @@ if __name__ == "__main__":
               "status": "passed", "duration_seconds": round(time.monotonic() - started, 2),
               "checks": ["prototype-load", "legendary-reference", "world-invariants", "technology-graph",
                          "removed-items", "barrel-conservation", "gleba-bootstrap", "native-loader-transfer",
-                         "platform-chests", "no-spoilage", "freeplay-configuration", "quality-conflict",
+                         "platform-chests", "platform-trains", "no-spoilage", "freeplay-configuration", "quality-conflict",
                          "equipment-inventories", "combat-mining-research-reference", "food-and-status-effects", "cargo-bay-native-limit"]}
     (ROOT / "dist/qa-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

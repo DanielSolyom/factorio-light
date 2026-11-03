@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2026-11-03
+  Changes:
+    - Restricted platform chests to wooden, iron and steel; logistic chests retain vanilla placement restrictions.
+    - Allowed trains, all wagon types, stops, signals, ground and elevated rails on platforms.
+  Testing:
+    - Added platform chest restriction and native railway regression coverage.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 2026-11-03
   Features:
