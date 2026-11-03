@@ -1,5 +1,9 @@
 -- Ordinary generated barrels use a fluid's default temperature. Constrain the
 -- input to that same temperature so no barrel can cool or heat a fluid silently.
+local shooting_tip = data.raw["tips-and-tricks-item"]["shoot-targeting"]
+shooting_tip.tag = "[item=submachine-gun]"
+shooting_tip.simulation.init = shooting_tip.simulation.init:gsub('"pistol"', '"submachine-gun"')
+
 for _, fluid in ipairs({"water", "sulfuric-acid", "crude-oil", "heavy-oil", "light-oil",
   "petroleum-gas", "lubricant", "ammoniacal-solution", "ammonia", "fluorine",
   "fluoroketone-cold", "fluoroketone-hot", "holmium-solution", "electrolyte",

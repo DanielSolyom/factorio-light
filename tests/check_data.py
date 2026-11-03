@@ -20,6 +20,11 @@ assert "pistol" not in mod.get("gun", {})
 assert "spoilage" not in mod.get("item", {})
 assert not any(n.startswith("quality-module") for n in mod.get("module", {}))
 assert mod["recipe"]["submachine-gun"]["enabled"]
+shooting_tip = mod["tips-and-tricks-item"]["shoot-targeting"]
+assert shooting_tip["tag"] == "[item=submachine-gun]"
+assert 'player.insert("submachine-gun")' in shooting_tip["simulation"]["init"]
+assert '"pistol"' not in shooting_tip["simulation"]["init"]
+assert "spoilables" not in mod["tips-and-tricks-item"]
 assert not any(e.get("recipe") == "submachine-gun" for e in mod["technology"]["military"]["effects"])
 
 items = {n: v for values in mod.values() for n, v in values.items() if "stack_size" in v}
