@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2026-11-03
+  Features:
+    - Fixed legendary benefits for official Space Age machinery, logistics, combat and equipment, with Quality disabled.
+    - Removed spoilage timers and the spoilage item; yumako mash supplies remaining biomass recipes.
+    - Hand-craftable mash nutrients, bacteria incubation and productivity-safe iron/copper isolation.
+    - All eight ordinary/logistic chest types can be placed on platforms.
+    - Temperature-preserving filling and emptying for all 22 real vanilla fluids.
+    - Four native compact loaders unlocked with the matching belt/splitter technology.
+    - Removed the pistol; freeplay starts and respawns use a submachine gun and 100 yellow magazines.
+  Compatibility:
+    - Requires Factorio 2.1.24+ in the 2.1 series, Space Age, Elevated Rails and Recycler.
+    - Quality and No Quality, No Problem are incompatible. Intended for new freeplay games.
+    - Planet-specific recipe restrictions and platform cargo-bay access remain unchanged.

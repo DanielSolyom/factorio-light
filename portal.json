@@ -1,0 +1,10 @@
+{
+  "title": "Factorio Light",
+  "summary": "Less grind. More factory. Fixed legendary machinery without Quality, no spoilage, deliberate Gleba production, platform chests, every fluid in barrels and compact loaders. Space Age 2.1.",
+  "category": "content",
+  "license": "default_gnulgplv3",
+  "homepage": "https://github.com/DanielSolyom/factorio-light",
+  "source_url": "https://github.com/DanielSolyom/factorio-light",
+  "description_file": "PORTAL.md",
+  "tags": ["manufacturing", "logistics", "storage", "fluids", "cheats"]
+}

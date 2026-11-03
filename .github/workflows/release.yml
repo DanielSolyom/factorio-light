@@ -1,0 +1,64 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Manifest version to test and publish
+        required: true
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: factorio-light-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Validate requested version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          version = os.environ['VERSION']
+          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', version)
+          assert version == json.load(open('factorio-light/info.json'))['version']
+          PY
+      - name: Test tooling
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Download Factorio
+        run: |
+          curl -fSL --retry 3 https://factorio.com/get-download/2.1.24/headless/linux64 -o /tmp/factorio.tar.xz
+          tar -xJf /tmp/factorio.tar.xz -C /tmp
+      - name: Build and test exact release archive
+        env:
+          FACTORIO_BIN: /tmp/factorio/bin/x64/factorio
+        run: python3 scripts/test.py
+      - name: Archive QA evidence
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: tested-release
+          path: dist/
+      - name: Publish Mod Portal archive and page
+        env:
+          FACTORIO_API_KEY: ${{ secrets.FACTORIO_API_KEY }}
+          VERSION: ${{ inputs.version }}
+        run: python3 scripts/publish.py "dist/factorio-light_${VERSION}.zip" dist/qa-report.json
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            gh release upload "v${VERSION}" dist/*.zip dist/*.sha256 dist/qa-report.json --clobber
+          else
+            gh release create "v${VERSION}" dist/*.zip dist/*.sha256 dist/qa-report.json --target "$GITHUB_SHA" --title "Factorio Light ${VERSION}" --notes-file RELEASE.md
+          fi
