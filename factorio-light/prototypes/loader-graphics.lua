@@ -8,7 +8,7 @@ function loader_graphics.structure(tint)
     direction_in = {
       sheets = {
         {
-          filename = "__factorio-light__/graphics/loaders/kr-loader.png",
+          filename = "__factorio-light-space-age__/graphics/loaders/kr-loader.png",
           priority = "extra-high",
           shift = { 0.15625, 0.0703125 },
           width = 106,
@@ -17,7 +17,7 @@ function loader_graphics.structure(tint)
           scale = 0.5,
         },
         {
-          filename = "__factorio-light__/graphics/loaders/kr-loader-mask.png",
+          filename = "__factorio-light-space-age__/graphics/loaders/kr-loader-mask.png",
           priority = "extra-high",
           shift = { 0.15625, 0.0703125 },
           width = 106,
@@ -27,7 +27,7 @@ function loader_graphics.structure(tint)
           tint = tint,
         },
         {
-          filename = "__factorio-light__/graphics/loaders/kr-loader-rust.png",
+          filename = "__factorio-light-space-age__/graphics/loaders/kr-loader-rust.png",
           priority = "extra-high",
           shift = { 0.15625, 0.0703125 },
           width = 106,
@@ -40,7 +40,7 @@ function loader_graphics.structure(tint)
     direction_out = {
       sheets = {
         {
-          filename = "__factorio-light__/graphics/loaders/kr-loader.png",
+          filename = "__factorio-light-space-age__/graphics/loaders/kr-loader.png",
           priority = "extra-high",
           shift = { 0.15625, 0.0703125 },
           width = 106,
@@ -48,7 +48,7 @@ function loader_graphics.structure(tint)
           scale = 0.5,
         },
         {
-          filename = "__factorio-light__/graphics/loaders/kr-loader-mask.png",
+          filename = "__factorio-light-space-age__/graphics/loaders/kr-loader-mask.png",
           priority = "extra-high",
           shift = { 0.15625, 0.0703125 },
           width = 106,
@@ -57,7 +57,7 @@ function loader_graphics.structure(tint)
           tint = tint,
         },
         {
-          filename = "__factorio-light__/graphics/loaders/kr-loader-rust.png",
+          filename = "__factorio-light-space-age__/graphics/loaders/kr-loader-rust.png",
           priority = "extra-high",
           shift = { 0.15625, 0.0703125 },
           width = 106,

@@ -1,10 +1,16 @@
 {
-  "name": "factorio-light",
+  "name": "factorio-light-space-age",
   "version": "1.0.0",
-  "title": "Factorio Light",
+  "title": "Factorio Light: Space Age",
   "author": "DanielSolyom",
   "description": "Less grind. More factory. Fixed legendary machinery without Quality, no spoilage, deliberate Gleba production, every fluid in barrels, platform chests and compact loaders.",
   "factorio_version": "2.1",
-  "dependencies": ["base >= 2.1.24", "space-age >= 2.1.24", "recycler >= 2.1.24", "! quality", "! no-quality-no-problem"],
+  "dependencies": [
+    "base >= 2.1.24",
+    "space-age >= 2.1.24",
+    "recycler >= 2.1.24",
+    "! quality",
+    "! no-quality-no-problem"
+  ],
   "homepage": "https://github.com/DanielSolyom/factorio-light"
 }

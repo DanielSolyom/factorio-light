@@ -58,7 +58,7 @@ def verified_archive(path, report_path):
         info_paths = [n for n in names if n.endswith("/info.json")]
         assert len(info_paths) == 1
         info = json.loads(archive.read(info_paths[0]))
-    assert info["name"] == "factorio-light" and info["version"] == report["mod_version"]
+    assert info["name"] == "factorio-light-space-age" and info["version"] == report["mod_version"]
     return info
 
 

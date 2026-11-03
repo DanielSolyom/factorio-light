@@ -17,7 +17,7 @@ end
 
 script.on_init(function()
   local quality = prototypes.quality.normal
-  if not script.active_mods["factorio-light"] then
+  if not script.active_mods["factorio-light-space-age"] then
     for _, candidate in pairs(prototypes.quality) do
       if candidate.level > quality.level then quality = candidate end
     end

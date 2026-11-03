@@ -24,7 +24,7 @@ def environment(name, mod=False, quality=False):
     (path / "data/scenarios").mkdir(parents=True)
     config = {"mods": [{"name": n, "enabled": enabled} for n, enabled in [
         ("base", True), ("elevated-rails", True), ("recycler", True),
-        ("space-age", True), ("quality", quality), ("factorio-light", mod)]]}
+        ("space-age", True), ("quality", quality), ("factorio-light-space-age", mod)]]}
     (path / "mods/mod-list.json").write_text(json.dumps(config))
     if mod:
         shutil.copy2(package, path / "mods")
@@ -79,7 +79,7 @@ if __name__ == "__main__":
         fixture.mkdir()
         (fixture / "info.json").write_text(json.dumps({"name": "player-fixture", "version": "1.0.0",
             "title": "QA player fixture", "author": "Tests", "factorio_version": "2.1",
-            "dependencies": ["space-age", "? factorio-light"]}))
+            "dependencies": ["space-age", "? factorio-light-space-age"]}))
         shutil.copy2(ROOT / "tests/player-fixture.lua", fixture / "data-final-fixes.lua")
         listing = json.loads((path / "mods/mod-list.json").read_text())
         listing["mods"].append({"name": "player-fixture", "enabled": True})
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     fixture.mkdir()
     (fixture / "info.json").write_text(json.dumps({"name": "cargo-fixture", "version": "1.0.0",
         "title": "QA cargo fixture", "author": "Tests", "factorio_version": "2.1",
-        "dependencies": ["factorio-light"]}))
+        "dependencies": ["factorio-light-space-age"]}))
     (fixture / "data.lua").write_text('data.raw["cargo-bay"]["cargo-bay"].allow_unloading = true\n')
     listing = json.loads((cargo / "mods/mod-list.json").read_text())
     listing["mods"].append({"name": "cargo-fixture", "enabled": True})

@@ -1,4 +1,4 @@
-# Factorio Light
+# Factorio Light: Space Age
 
 **Less grind. More factory.**
 
@@ -16,7 +16,7 @@ Requires **Factorio 2.1.24+ and Space Age**, within the 2.1 release family.
 Enable Space Age, Elevated Rails and Recycler; disable Quality and
 No Quality, No Problem. Designed for new games with the official content set.
 
-[Mod page](https://mods.factorio.com/mod/factorio-light) ·
+[Mod page](https://mods.factorio.com/mod/factorio-light-space-age) ·
 [Releases](https://github.com/DanielSolyom/factorio-light/releases) ·
 [Report a bug](https://github.com/DanielSolyom/factorio-light/issues) ·
 [Gameplay details](PORTAL.md)

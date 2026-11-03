@@ -10,7 +10,7 @@ local tiers = {
 for i, tier in ipairs(tiers) do
   local name = "factorio-light-" .. tier[1]
   local belt = data.raw["transport-belt"][tier[2]]
-  local icon = "__factorio-light__/graphics/loaders/" .. tier[4] .. ".png"
+  local icon = "__factorio-light-space-age__/graphics/loaders/" .. tier[4] .. ".png"
   local ingredients = {{type = "item", name = tier[2], amount = 1},
     {type = "item", name = "iron-gear-wheel", amount = 10}}
   if i == 1 then

@@ -51,7 +51,7 @@ jobs:
         env:
           FACTORIO_API_KEY: ${{ secrets.FACTORIO_API_KEY }}
           VERSION: ${{ inputs.version }}
-        run: python3 scripts/publish.py "dist/factorio-light_${VERSION}.zip" dist/qa-report.json
+        run: python3 scripts/publish.py "dist/factorio-light-space-age_${VERSION}.zip" dist/qa-report.json
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
