@@ -1,6 +1,6 @@
 {
   "name": "factorio-light-space-age",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "title": "Factorio Light: Space Age",
   "author": "DanielSolyom",
   "description": "Less grind. More factory. Fixed legendary machinery without Quality, no spoilage, deliberate Gleba production, fluid barrels for orbital supply, platform steel chests and compact loaders.",
@@ -9,8 +9,7 @@
     "base >= 2.1.24",
     "space-age >= 2.1.24",
     "recycler >= 2.1.24",
-    "! quality",
-    "! no-quality-no-problem"
+    "! quality"
   ],
   "homepage": "https://github.com/DanielSolyom/factorio-light"
 }

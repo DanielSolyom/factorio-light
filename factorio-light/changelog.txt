@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.6
+Date: 2026-11-04
+  Changes:
+    - Removed a redundant incompatibility entry; Quality remains incompatible.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.5
 Date: 2026-11-03
   Bugfixes:
@@ -46,5 +51,5 @@ Date: 2026-11-03
     - Removed the pistol; freeplay starts and respawns use a submachine gun and 100 yellow magazines.
   Compatibility:
     - Requires Factorio 2.1.24+ in the 2.1 series, Space Age, Elevated Rails and Recycler.
-    - Quality and No Quality, No Problem are incompatible. Intended for new freeplay games.
+    - Quality is incompatible. Intended for new freeplay games.
     - Planet-specific recipe restrictions and platform cargo-bay access remain unchanged.

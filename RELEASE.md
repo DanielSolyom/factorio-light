@@ -1,9 +1,7 @@
 Less grind. More factory.
 
-Version 1.0.5 fixes starting ammunition landing in the backpack. New players and
-respawns now have their 100 yellow magazines loaded beside the submachine gun.
-Updating an existing save moves carried yellow ammo into an empty SMG ammo slot;
-it does not grant extra ammo or replace ammunition already equipped.
+Version 1.0.6 simplifies the dependency list. Quality is the only explicitly
+incompatible mod.
 
 - Fixed legendary stats with Quality disabled and normal enemy/world stats.
 - No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.
