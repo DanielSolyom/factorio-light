@@ -104,12 +104,85 @@ script.on_event(defines.events.on_tick, function(event)
       assert(case.input.get_filter(1).name == "iron-plate")
       assert(case.input.loader_belt_stack_size_override == 2)
     end
+    -- Dedicated loader mods also handle belt ghosts and perpendicular outputs.
+    surface = game.create_surface("loader-edges", {width = 200, height = 200})
+    surface.request_to_generate_chunks({0, 0}, 4)
+    surface.force_generate_chunk_requests()
+    for _, entity in pairs(surface.find_entities_filtered{type = {"tree", "simple-entity", "cliff"}}) do
+      entity.destroy()
+    end
+    surface.set_tiles(tiles)
+    player.teleport({0, 0}, surface)
+    storage.edges = {}
+    for _, direction in ipairs(directions) do
+      for kind = 1, 3 do
+        local index = #storage.edges
+        local cx, cy = -70 + (index % 8)*20 + .5, -80 + math.floor(index/8)*20 + .5
+        local function pos(distance)
+          return {cx + direction[2]*distance, cy + direction[3]*distance}
+        end
+        for _, power in ipairs({{"substation", 5}, {"electric-energy-interface", 8}}) do
+          assert(surface.create_entity{name = power[1], force = player.force,
+            position = {cx - direction[3]*power[2], cy + direction[2]*power[2]}})
+        end
+        local sideways = kind > 1
+        local belt_direction = (direction[1] + (sideways and 4 or 0)) % 16
+        local belt_position = pos(sideways and 1 or -1)
+        local belt = assert(surface.create_entity{
+          name = kind == 2 and "transport-belt" or "entity-ghost",
+          inner_name = kind ~= 2 and "transport-belt" or nil,
+          position = belt_position, direction = belt_direction, force = player.force})
+        local chest
+        if sideways then
+          chest = assert(surface.create_entity{name = "steel-chest", position = pos(-1), force = player.force})
+          chest.insert{name = "iron-plate", count = 20}
+        end
+        local loader
+        if kind == 1 then
+          -- Belt first, machine later; raised build must see the ghost belt.
+          loader = assert(surface.create_entity{name = "factorio-light-loader",
+            position = pos(0), direction = direction[1], force = player.force, raise_built = true})
+          chest = assert(surface.create_entity{name = "steel-chest", position = pos(1), force = player.force})
+        elseif kind == 2 then
+          player.cursor_stack.set_stack{name = "factorio-light-loader", count = 1}
+          player.teleport(pos(3))
+          player.build_from_cursor{position = pos(0), direction = (direction[1] + 8) % 16}
+          loader = assert(surface.find_entity("factorio-light-loader", pos(0)))
+        else
+          local ghost = assert(surface.create_entity{name = "entity-ghost", inner_name = "factorio-light-loader",
+            position = pos(0), direction = (direction[1] + 8) % 16, force = player.force})
+          local _, revived = ghost.revive{raise_revive = true}
+          loader = assert(revived)
+        end
+        loader.update_connections()
+        assert(loader.loader_container == chest, "edge container " .. index)
+        assert(loader.loader_type == (sideways and "output" or "input"), "edge mode " .. index)
+        assert(loader.direction == direction[1], "edge flow " .. index)
+        if belt.type == "entity-ghost" then
+          local _, revived = belt.revive{raise_revive = true}
+          belt = assert(revived)
+        end
+        if not sideways then
+          assert(belt.get_transport_line(1).insert_at_back{name = "iron-plate", count = 1})
+        end
+        storage.edges[#storage.edges+1] = {chest = chest, belt = belt, sideways = sideways}
+      end
+    end
   elseif event.tick == 2400 then
     assert(#storage.cases == 64)
     for index, case in ipairs(storage.cases) do
       assert(case.source.get_item_count("iron-plate") == 0, "source not emptied: " .. index)
       local count = case.result.get_item_count(case.item)
       assert(count == case.count, "transfer " .. index .. ": expected " .. case.count .. ", got " .. count)
+    end
+    for index, case in ipairs(storage.edges) do
+      if case.sideways then
+        assert(case.chest.get_item_count("iron-plate") < 20, "side-loading source " .. index)
+        assert(case.belt.get_transport_line(1).get_item_count("iron-plate")
+          + case.belt.get_transport_line(2).get_item_count("iron-plate") > 0, "side-loading belt " .. index)
+      else
+        assert(case.chest.get_item_count("iron-plate") == 1, "ghost belt loading " .. index)
+      end
     end
     log("FACTORIO LIGHT LOADER PLACEMENT PASSED")
     script.finish_test(true)

@@ -6,6 +6,7 @@ Date: 2026-11-04
     - Updating repairs disconnected loaders that face an adjacent inventory, preserving filters, stack settings and already connected loaders.
   Testing:
     - Added real-player placement and powered transfer checks for every loader tier and direction, with chests, assemblers, rotation and inventory-connection repair.
+    - Covered belt ghosts, revived loaders and side-loading onto perpendicular belts.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.6
 Date: 2026-11-04

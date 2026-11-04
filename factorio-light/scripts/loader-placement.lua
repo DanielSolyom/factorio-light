@@ -13,15 +13,18 @@ local names = {
 }
 local supported = {}
 for _, name in ipairs(names) do supported[name] = true end
+local belt_types = {"transport-belt", "underground-belt", "splitter", "lane-splitter",
+  "linked-belt", "loader", "loader-1x1"}
 
 local function opposite(direction) return (direction + 8) % 16 end
 
 local function belt_at(entity, direction)
   local offset = offsets[direction]
+  local position = {entity.position.x + offset[1], entity.position.y + offset[2]}
   return entity.surface.find_entities_filtered{
-    position = {entity.position.x + offset[1], entity.position.y + offset[2]},
-    force = entity.force,
-    type = {"transport-belt", "underground-belt", "splitter", "linked-belt", "loader", "loader-1x1"}
+    position = position, force = entity.force, type = belt_types
+  }[1] or entity.surface.find_entities_filtered{
+    position = position, force = entity.force, ghost_type = belt_types
   }[1]
 end
 
@@ -53,6 +56,12 @@ local function snap(entity, repair)
   if belt and belt.direction == opposite(entity.direction) then
     -- Reverse flow while retaining the same machine connection.
     entity.loader_type = entity.loader_type == "input" and "output" or "input"
+  elseif belt and belt.direction ~= entity.direction then
+    local belt_type = belt.type == "entity-ghost" and belt.ghost_type or belt.type
+    if belt_type == "transport-belt" or belt_type == "underground-belt" then
+      -- A perpendicular belt accepts side-loading; it cannot feed the loader.
+      entity.loader_type = "output"
+    end
   end
 end
 
