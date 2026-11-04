@@ -1,10 +1,16 @@
 # Factorio Light: Space Age
 
+[![QA](https://github.com/DanielSolyom/factorio-light/actions/workflows/ci.yml/badge.svg)](https://github.com/DanielSolyom/factorio-light/actions/workflows/ci.yml)
+[![Mod portal](https://img.shields.io/factorio-mod-portal/v/factorio-light-space-age?label=mod%20portal&color=orange)](https://mods.factorio.com/mod/factorio-light-space-age)
+[![Downloads](https://img.shields.io/factorio-mod-portal/dt/factorio-light-space-age?color=blue)](https://mods.factorio.com/mod/factorio-light-space-age)
+[![Factorio](https://img.shields.io/badge/factorio-2.1-yellow)](https://factorio.com)
+[![License: LGPL-3.0](https://img.shields.io/badge/license-LGPL--3.0-green.svg)](https://github.com/DanielSolyom/factorio-light/blob/main/LICENSE)
+
 **Less grind. More factory.**
 
 A focused Factorio: Space Age mod for more building and less repetition.
 
-- Fixed legendary benefits, with Quality disabled: no tiers, badges or modules.
+- Fixed legendary benefits, with Quality disabled: no quality tiers, indicators or modules.
 - Nothing spoils. Hand-craft nutrients from yumako mash, incubate bacteria,
   and isolate iron and copper deliberately.
 - Build steel chests on platforms. Other chests and railways retain vanilla
@@ -14,8 +20,8 @@ A focused Factorio: Space Age mod for more building and less repetition.
 - Start and respawn with a submachine gun and 100 yellow magazines. No pistol.
 
 Requires **Factorio 2.1.24+ and Space Age**, within the 2.1 release family.
-Enable Space Age, Elevated Rails and Recycler; disable Quality and
-No Quality, No Problem. Designed for new games with the official content set.
+Enable Space Age, Elevated Rails and Recycler; disable Quality.
+Designed for new games with the official content set.
 
 [Mod page](https://mods.factorio.com/mod/factorio-light-space-age) ·
 [Releases](https://github.com/DanielSolyom/factorio-light/releases) ·

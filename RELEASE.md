@@ -12,7 +12,7 @@ it does not grant extra ammo or replace ammunition already equipped.
 - A submachine gun and 100 yellow magazines at freeplay start and respawn.
 
 Requires Factorio 2.1.24+ within the 2.1 series and Space Age. Intended for new
-games; disable Quality and No Quality, No Problem.
+games; disable Quality.
 
 This archive is tested in the real Factorio engine against unmodified Space Age
 and legendary-quality references. See the attached QA report and SHA-256.
