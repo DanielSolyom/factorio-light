@@ -17,6 +17,8 @@ A focused Factorio: Space Age mod for more building and less repetition.
   placement restrictions. Barrel all fluids except steam and fusion plasma,
   including water, thruster fuel and oxidizer for platform-to-platform supply.
 - Four compact Krastorio-style loaders, unlocked alongside their splitters.
+  They need electricity and snap to adjacent machines and belts when placed.
+  Press R over a placed loader to switch between loading and unloading.
 - Start and respawn with a submachine gun and 100 yellow magazines. No pistol.
 
 Requires **Factorio 2.1.24+ and Space Age**, within the 2.1 release family.
@@ -47,7 +49,8 @@ baseline, and a separate legendary-quality reference.
 
 CI checks prototype invariants, technology reachability, recipe inputs,
 legendary stats, equipment, combat, mining, science consumption, platform
-storage and placement restrictions, loader transfers, barrel conservation,
+storage and placement restrictions, loader transfers and real-player loader
+placement in every direction (including existing-loader repair), barrel conservation,
 native platform-to-platform fluid supplies, freeplay starter settings and
 real-player starting/respawn ammunition slots.
 The ZIP, SHA-256 and QA report are produced in `dist/`.

@@ -21,7 +21,10 @@ icons/entities/{loader,fast-loader,express-loader,advanced-loader}.png.
 These PNGs are unmodified. The advanced-loader icon represents the turbo tier.
 Changes to code: local asset paths, Factorio Light names, four vanilla belt
 tiers, vanilla ingredients, splitter research unlocks, stacking, insertion
-limits, and fixed legendary health. The original snapping script is not used.
+limits, and fixed legendary health. The placement handler in
+scripts/loader-placement.lua adapts the connection and belt snapping approach
+from Krastorio 2's scripts/loader-snapping.lua at the same source commit,
+using native container detection, no flib dependency, and an upgrade repair.
 No Krastorio dependency or other Krastorio content is included.
 
 ## Factorio

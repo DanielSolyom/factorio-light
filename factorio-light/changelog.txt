@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.7
+Date: 2026-11-04
+  Bugfixes:
+    - Loaders now snap to adjacent machines and belt flow when built, allowing normal placement for both loading and unloading.
+    - Updating repairs disconnected loaders that face an adjacent inventory, preserving filters, stack settings and already connected loaders.
+  Testing:
+    - Added real-player placement and powered transfer checks for every loader tier and direction, with chests, assemblers, rotation and inventory-connection repair.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.6
 Date: 2026-11-04
   Changes:

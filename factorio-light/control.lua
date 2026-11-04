@@ -21,6 +21,7 @@ local function configure_freeplay()
 end
 
 local load_starter_ammo = require("scripts.starter-equipment")
+local loader_placement = require("scripts.loader-placement")
 local function equip_starter_ammo(player)
   if not remote.interfaces.freeplay then return end
   storage.pending_starter_ammo = storage.pending_starter_ammo or {}
@@ -28,14 +29,19 @@ local function equip_starter_ammo(player)
 end
 
 script.on_init(configure_freeplay)
-script.on_configuration_changed(function()
+script.on_configuration_changed(function(event)
   configure_freeplay()
+  if event.mod_changes["factorio-light-space-age"] then loader_placement.repair() end
   for _, force in pairs(game.forces) do
     force.recipes["submachine-gun"].enabled = true
   end
   -- Repair older saves without granting items or replacing equipped ammunition.
   for _, player in pairs(game.players) do equip_starter_ammo(player) end
 end)
+
+script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
+  defines.events.on_space_platform_built_entity, defines.events.script_raised_built,
+  defines.events.script_raised_revive, defines.events.on_entity_cloned}, loader_placement.on_built)
 
 script.on_event({defines.events.on_player_created, defines.events.on_player_respawned}, function(event)
   equip_starter_ammo(game.get_player(event.player_index))

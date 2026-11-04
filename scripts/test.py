@@ -86,6 +86,13 @@ if __name__ == "__main__":
     output = run(starter, "starter-equipment", "--test-scenario", "starter-equipment", "--test-ticks", "200")
     assert "FACTORIO LIGHT STARTER EQUIPMENT PASSED" in output, output[-4000:]
     print("PASS: real-player starting/respawn ammo slots and inventory repair", flush=True)
+    loaders = environment("loader-placement", mod=True)
+    target = loaders / "data/scenarios/loader-placement"
+    target.mkdir()
+    shutil.copy2(ROOT / "tests/loader-placement.lua", target / "control.lua")
+    output = run(loaders, "loader-placement", "--test-scenario", "loader-placement", "--test-ticks", "2401")
+    assert "FACTORIO LIGHT LOADER PLACEMENT PASSED" in output, output[-4000:]
+    print("PASS: player-placed loaders, both directions, all tiers/orientations, chest/assembler transfers and repair", flush=True)
     for path in [legendary, modded]:
         fixture = path / "mods/player-fixture"
         fixture.mkdir()
@@ -136,7 +143,7 @@ if __name__ == "__main__":
               "source_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip() or None,
               "status": "passed", "duration_seconds": round(time.monotonic() - started, 2),
               "checks": ["prototype-load", "legendary-reference", "world-invariants", "technology-graph",
-                         "removed-items", "barrel-conservation", "gleba-bootstrap", "native-loader-transfer",
+                         "removed-items", "barrel-conservation", "gleba-bootstrap", "native-loader-transfer", "loader-placement-and-repair",
                          "platform-chests", "platform-placement-restrictions", "platform-fluid-supply", "no-spoilage", "freeplay-configuration", "starter-equipment", "quality-conflict",
                          "equipment-inventories", "combat-mining-research-reference", "food-and-status-effects", "cargo-bay-native-limit"]}
     (ROOT / "dist/qa-report.json").write_text(json.dumps(report, indent=2) + "\n")
