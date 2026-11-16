@@ -60,7 +60,8 @@ script.on_init(function()
   local surface = arena("research")
   local force = game.create_force("research")
   local lab = assert(surface.create_entity{name = "lab", position = {0, 0}, force = force, quality = quality})
-  lab.get_inventory(defines.inventory.lab_input).insert{name = "automation-science-pack", quality = quality, count = 10}
+  -- Legendary lab, normal packs: the mod upgrades labs but keeps vanilla science packs.
+  lab.get_inventory(defines.inventory.lab_input).insert{name = "automation-science-pack", quality = "normal", count = 10}
   for _, prerequisite in pairs(force.technologies.automation.prerequisites) do prerequisite.researched = true end
   assert(force.add_research("automation"))
   storage.lab, storage.research_force = lab, force

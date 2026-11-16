@@ -521,59 +521,17 @@ data.raw["inserter"]["stack-inserter"].rotation_speed = 0.1
 -- toolbelt-equipment
 data.raw["inventory-bonus-equipment"]["toolbelt-equipment"].inventory_size_bonus = 25
 
--- agricultural-science-pack
-data.raw["item"]["agricultural-science-pack"].science_capacity = 6
-
--- automation-science-pack
-data.raw["item"]["automation-science-pack"].science_capacity = 6
-
--- chemical-science-pack
-data.raw["item"]["chemical-science-pack"].science_capacity = 6
-
--- coin
-data.raw["item"]["coin"].science_capacity = 6
-
--- cryogenic-science-pack
-data.raw["item"]["cryogenic-science-pack"].science_capacity = 6
-
--- electromagnetic-science-pack
-data.raw["item"]["electromagnetic-science-pack"].science_capacity = 6
-
--- logistic-science-pack
-data.raw["item"]["logistic-science-pack"].science_capacity = 6
-
--- metallurgic-science-pack
-data.raw["item"]["metallurgic-science-pack"].science_capacity = 6
-
--- military-science-pack
-data.raw["item"]["military-science-pack"].science_capacity = 6
-
 -- nuclear-fuel
 data.raw["item"]["nuclear-fuel"].fuel_acceleration_multiplier = 4.75
 data.raw["item"]["nuclear-fuel"].fuel_top_speed_multiplier = 1.375
-
--- production-science-pack
-data.raw["item"]["production-science-pack"].science_capacity = 6
-
--- promethium-science-pack
-data.raw["item"]["promethium-science-pack"].science_capacity = 6
 
 -- rocket-fuel
 data.raw["item"]["rocket-fuel"].fuel_acceleration_multiplier = 3
 data.raw["item"]["rocket-fuel"].fuel_top_speed_multiplier = 1.375
 
--- science
-data.raw["item"]["science"].science_capacity = 6
-
 -- solid-fuel
 data.raw["item"]["solid-fuel"].fuel_acceleration_multiplier = 1.5
 data.raw["item"]["solid-fuel"].fuel_top_speed_multiplier = 1.125
-
--- space-science-pack
-data.raw["item"]["space-science-pack"].science_capacity = 6
-
--- utility-science-pack
-data.raw["item"]["utility-science-pack"].science_capacity = 6
 
 -- biolab
 data.raw["lab"]["biolab"].max_health = 875

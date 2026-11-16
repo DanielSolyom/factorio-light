@@ -88,7 +88,6 @@ for n,(t,v) in items.items():
    grid=v['equipment_grid']
    for dim in ['width','height']:setv('equipment-grid',grid,dim,base['equipment-grid'][grid][dim]+5)
  if t=='repair-tool':setv(t,n,'durability',ref['item'][n]['get_durability'])
- if v.get('subgroup')=='science-pack':setv(t,n,'science_capacity',6)
  if t=='gun' and n!='pistol':setv(t,n,'attack_parameters.range',v['attack_parameters']['range']*1.5)
  for key in ['fuel_acceleration_multiplier','fuel_top_speed_multiplier']:
   if v.get(key,1)>1:setv(t,n,key,v[key]+5*v.get(key+'_quality_bonus',.3*(v[key]-1)))

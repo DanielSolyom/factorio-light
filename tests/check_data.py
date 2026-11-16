@@ -28,6 +28,12 @@ assert "spoilables" not in mod["tips-and-tricks-item"]
 assert not any(e.get("recipe") == "submachine-gun" for e in mod["technology"]["military"]["effects"])
 
 items = {n: v for values in mod.values() for n, v in values.items() if "stack_size" in v}
+# Science packs keep vanilla research value; only labs get legendary stats.
+base_items = {n: v for values in base.values() for n, v in values.items() if "stack_size" in v}
+for name, value in base_items.items():
+    if value.get("subgroup") == "science-pack":
+        for key in ("science_capacity", "durability"):
+            assert items[name].get(key) == value.get(key), (name, key)
 for name, value in items.items():
     assert not value.get("spoil_ticks"), name
     assert not value.get("spoil_to_trigger_result"), name

@@ -1,9 +1,7 @@
 Less grind. More factory.
 
-Version 1.0.7 fixes loaders that would unload but fail to load chests and machines.
-Newly placed loaders snap to their machine and belt direction. Updating also
-repairs affected disconnected loaders in existing saves, preserving their
-filters and stack settings. Press R over a connected loader to reverse its flow.
+Version 1.0.8 restores vanilla science pack value: each pack is worth one
+research unit again. Labs keep their legendary research speed.
 
 - Fixed legendary stats with Quality disabled and normal enemy/world stats.
 - No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.
