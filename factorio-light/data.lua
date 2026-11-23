@@ -1,4 +1,5 @@
 require("prototypes.fixed-stats")
+require("prototypes.cargo-bays")
 require("prototypes.gleba")
 require("prototypes.platforms")
 require("prototypes.loaders")

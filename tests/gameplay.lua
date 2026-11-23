@@ -17,16 +17,16 @@ script.on_init(function()
   end end
   surface.set_tiles(tiles)
   storage.powered, storage.loaders = {}, {}
-  for i, name in ipairs({"steel-chest"}) do
+  for i, name in ipairs({"steel-chest", "active-provider-chest", "passive-provider-chest",
+    "storage-chest", "buffer-chest", "requester-chest"}) do
     assert(surface.can_place_entity{name = name, position = {20 + i*2, 20}, force = force})
     local chest = spawn(surface, name, 20+i*2, 20)
     assert(chest.insert{name = "iron-plate", count = 100} == 100)
   end
-  for _, name in ipairs({"wooden-chest", "iron-chest", "active-provider-chest", "passive-provider-chest", "storage-chest",
-    "buffer-chest", "requester-chest"}) do
+  for _, name in ipairs({"wooden-chest", "iron-chest"}) do
     assert(not surface.can_place_entity{name = name, position = {40, 40}, force = force}, name)
   end
-  for _, name in ipairs({"roboport", "straight-rail", "half-diagonal-rail", "curved-rail-a",
+  for _, name in ipairs({"straight-rail", "half-diagonal-rail", "curved-rail-a",
     "curved-rail-b", "rail-ramp", "rail-support", "elevated-straight-rail",
     "elevated-half-diagonal-rail", "elevated-curved-rail-a", "elevated-curved-rail-b",
     "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon", "train-stop",

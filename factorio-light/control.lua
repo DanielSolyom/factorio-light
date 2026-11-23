@@ -22,15 +22,20 @@ end
 
 local load_starter_ammo = require("scripts.starter-equipment")
 local loader_placement = require("scripts.loader-placement")
+local cargo_bays = require("scripts.cargo-bays")
 local function equip_starter_ammo(player)
   if not remote.interfaces.freeplay then return end
   storage.pending_starter_ammo = storage.pending_starter_ammo or {}
   storage.pending_starter_ammo[player.index] = not load_starter_ammo(player) or nil
 end
 
-script.on_init(configure_freeplay)
+script.on_init(function()
+  configure_freeplay()
+  cargo_bays.rebuild()
+end)
 script.on_configuration_changed(function(event)
   configure_freeplay()
+  cargo_bays.rebuild()
   if event.mod_changes["factorio-light-space-age"] then loader_placement.repair() end
   for _, force in pairs(game.forces) do
     force.recipes["submachine-gun"].enabled = true
@@ -41,7 +46,16 @@ end)
 
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
   defines.events.on_space_platform_built_entity, defines.events.script_raised_built,
-  defines.events.script_raised_revive, defines.events.on_entity_cloned}, loader_placement.on_built)
+  defines.events.script_raised_revive, defines.events.on_entity_cloned}, function(event)
+    cargo_bays.on_built(event)
+    loader_placement.on_built(event)
+end)
+
+script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity,
+  defines.events.on_space_platform_mined_entity, defines.events.on_entity_died,
+  defines.events.script_raised_destroy}, cargo_bays.on_removing)
+script.on_event(defines.events.on_object_destroyed, cargo_bays.on_destroyed)
+script.on_event(defines.events.on_forces_merged, cargo_bays.rebuild)
 
 script.on_event({defines.events.on_player_created, defines.events.on_player_respawned}, function(event)
   equip_starter_ammo(game.get_player(event.player_index))

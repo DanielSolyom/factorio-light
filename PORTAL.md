@@ -18,7 +18,8 @@ If that sounds like your kind of Space Age, this mod might be for you too.
 - **Legendary benefits, without Quality.** Machines, equipment and weapons get
   their legendary bonuses as standard. No quality rolls, no quality modules,
   no sorting through five versions of the same item. Research still unlocks
-  your machinery as you progress.
+  your machinery as you progress. Labs research at legendary speed, while each
+  science pack keeps its vanilla research value.
 - **Nothing spoils.** Stockpile food, nutrients and agricultural science, then
   work on Gleba at your own pace. Grow iron and copper bacteria through
   incubation and turn them into ore with isolation recipes. You can make your
@@ -27,8 +28,16 @@ If that sounds like your kind of Space Age, this mod might be for you too.
   one platform and send them to another. Build a fuel depot, keep your ships
   supplied, and send the empty barrels back. Barreling works on platforms for
   every fluid except steam and fusion plasma.
-- **Steel chests in space.** Keep supplies close to the machines that need
-  them, with chest storage on your platforms.
+- **Robot logistics in space.** Build roboports, steel chests and all five
+  logistic chest types on your platforms: active provider, passive provider,
+  storage, buffer and requester. Power the roboports, add logistic robots and
+  use chest requests to deliver supplies around your ships.
+- **Unload anywhere along your cargo bays.** Ordinary cargo bays let inserters
+  and loaders unload the connected landing pad or platform hub, with no distance
+  limit. They retain their storage and cargo pod hatches. The separate landing
+  pad unloading bay and its research are gone; existing bays and items convert
+  to ordinary cargo bays when updating. Bays must still connect to the pad or
+  hub through an unbroken chain, and allow unloading only.
 - **Compact loaders.** Four tiers of 1×1 loaders, adapted from Krastorio 2,
   unlock alongside their matching splitters.
 - **A better starting gun.** Start with a submachine gun and a full stack of

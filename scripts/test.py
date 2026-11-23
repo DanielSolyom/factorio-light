@@ -71,6 +71,11 @@ if __name__ == "__main__":
                  "--benchmark-ticks", "3601", "--benchmark-runs", "1")
     assert "FACTORIO LIGHT GAMEPLAY PASSED" in output, output[-4000:]
     print("PASS: actual crafting, platform storage, loaders and no-spoil inventories", flush=True)
+    scenario(modded, "platform-logistics", "platform-logistics.lua")
+    output = run(modded, "platform-logistics-run", "--benchmark", modded / "data/saves/platform-logistics.zip",
+                 "--benchmark-ticks", "7201", "--benchmark-runs", "1")
+    assert "FACTORIO LIGHT PLATFORM LOGISTICS PASSED" in output, output[-4000:]
+    print("PASS: powered platform roboport and actual deliveries through all five logistic chest types", flush=True)
     scenario(modded, "platform-supply", "platform-supply.lua")
     output = run(modded, "platform-supply-run", "--benchmark", modded / "data/saves/platform-supply.zip",
                  "--benchmark-ticks", "7201", "--benchmark-runs", "1")
@@ -120,21 +125,33 @@ if __name__ == "__main__":
             tolerance = .02 if field == "health" else .001
             assert abs(value - actual[name][field]) < tolerance, (name, field, value, actual[name][field])
     cargo = environment("cargo-probe", mod=True)
-    fixture = cargo / "mods/cargo-fixture"
-    fixture.mkdir()
-    (fixture / "info.json").write_text(json.dumps({"name": "cargo-fixture", "version": "1.0.0",
-        "title": "QA cargo fixture", "author": "Tests", "factorio_version": "2.1",
-        "dependencies": ["factorio-light-space-age"]}))
-    (fixture / "data.lua").write_text('data.raw["cargo-bay"]["cargo-bay"].allow_unloading = true\n')
-    listing = json.loads((cargo / "mods/mod-list.json").read_text())
-    listing["mods"].append({"name": "cargo-fixture", "enabled": True})
-    (cargo / "mods/mod-list.json").write_text(json.dumps(listing))
     scenario(cargo, "cargo-probe", "cargo-probe.lua")
     run(cargo, "cargo-run", "--benchmark", cargo / "data/saves/cargo-probe.zip",
         "--benchmark-ticks", "601", "--benchmark-runs", "1")
     transfers = json.loads((cargo / "data/script-output/cargo-probe.json").read_text())
     assert transfers["hub-out"]["chest"] > 0 and transfers["hub-in"]["hub"] > 0
-    assert transfers["bay-out"]["chest"] == 0 and transfers["bay-in"]["hub"] == 0
+    assert transfers["bay-out"]["chest"] > 0 and transfers["bay-in"]["hub"] == 0
+    scenario(cargo, "cargo-unloading", "cargo-unloading.lua")
+    output = run(cargo, "cargo-unloading-run", "--benchmark", cargo / "data/saves/cargo-unloading.zip",
+                 "--benchmark-ticks", "561", "--benchmark-runs", "1")
+    assert "FACTORIO LIGHT CARGO UNLOADING PASSED" in output, output[-4000:]
+    print("PASS: unlimited cargo-bay unloading on planets/platforms, disconnection and reconstruction", flush=True)
+    # A small prior-version fixture supplies vanilla unloading bays. This tests
+    # an actual mod upgrade without relying on a downloaded historical release.
+    previous = environment("cargo-migration-before")
+    fixture = previous / "mods/factorio-light-space-age"
+    fixture.mkdir()
+    (fixture / "info.json").write_text(json.dumps({"name": "factorio-light-space-age", "version": "1.0.8",
+        "title": "Prior cargo behavior fixture", "author": "Tests", "factorio_version": "2.1",
+        "dependencies": ["space-age"]}))
+    listing = json.loads((previous / "mods/mod-list.json").read_text())
+    next(m for m in listing["mods"] if m["name"] == "factorio-light-space-age")["enabled"] = True
+    (previous / "mods/mod-list.json").write_text(json.dumps(listing))
+    scenario(previous, "cargo-migration", "cargo-migration.lua")
+    output = run(cargo, "cargo-migration-run", "--benchmark", previous / "data/saves/cargo-migration.zip",
+                 "--benchmark-ticks", "2", "--benchmark-runs", "1")
+    assert "FACTORIO LIGHT CARGO MIGRATION PASSED" in output, output[-4000:]
+    print("PASS: existing unloading bays, ghosts, items and platform cargo survive migration", flush=True)
     conflict = environment("quality-conflict", mod=True, quality=True)
     output = run(conflict, "conflict", "--dump-data", expected_failure=True)
     assert "quality" in output.lower() and "factorio-light" in output.lower()
@@ -144,7 +161,8 @@ if __name__ == "__main__":
               "status": "passed", "duration_seconds": round(time.monotonic() - started, 2),
               "checks": ["prototype-load", "legendary-reference", "world-invariants", "technology-graph",
                          "removed-items", "barrel-conservation", "gleba-bootstrap", "native-loader-transfer", "loader-placement-and-repair",
-                         "platform-chests", "platform-placement-restrictions", "platform-fluid-supply", "no-spoilage", "freeplay-configuration", "starter-equipment", "quality-conflict",
-                         "equipment-inventories", "combat-mining-research-reference", "food-and-status-effects", "cargo-bay-native-limit"]}
+                         "platform-chests", "platform-placement-restrictions", "platform-robot-logistics", "platform-fluid-supply", "no-spoilage", "freeplay-configuration", "starter-equipment", "quality-conflict",
+                         "equipment-inventories", "combat-mining-research-reference", "food-and-status-effects",
+                         "cargo-bay-unloading", "cargo-bay-migration"]}
     (ROOT / "dist/qa-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

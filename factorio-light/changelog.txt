@@ -1,4 +1,22 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.10
+Date: 2026-11-23
+  Features:
+    - Enabled roboports and active provider, passive provider, storage, buffer and requester chests on space platforms.
+    - Platform robot logistics use native roboport power, charging and logistic network behavior.
+  Testing:
+    - Checked actual robot deliveries through all five logistic chest types on a platform with an electrically powered roboport.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.9
+Date: 2026-11-19
+  Features:
+    - Ordinary cargo bays allow inserters and loaders to unload connected landing pads and space platform hubs at any distance along the bay chain.
+    - Cargo bays retain their storage capacity and cargo pod hatches. Unloading stops when the chain is disconnected.
+    - Removed the separate landing pad unloading bay and research; existing entities, ghosts and carried items migrate to ordinary cargo bays.
+  Testing:
+    - Checked planetary and platform unloading in all directions beyond 59 tiles, output-only access, chain disconnection/revival, cloning and helper cleanup.
+    - Checked existing-save migration preserves connected bays, carried items and stored cargo.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.8
 Date: 2026-11-16
   Bugfixes:

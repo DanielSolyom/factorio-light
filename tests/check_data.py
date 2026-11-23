@@ -25,6 +25,11 @@ assert shooting_tip["tag"] == "[item=submachine-gun]"
 assert 'player.insert("submachine-gun")' in shooting_tip["simulation"]["init"]
 assert '"pistol"' not in shooting_tip["simulation"]["init"]
 assert "spoilables" not in mod["tips-and-tricks-item"]
+assert mod["cargo-bay"]["cargo-bay"]["allow_unloading"]
+assert not mod["cargo-bay"]["cargo-bay"]["use_unloading_distance_limit"]
+assert mod["cargo-bay"]["cargo-bay"]["hatch_definitions"] == base["cargo-bay"]["cargo-bay"]["hatch_definitions"]
+for kind in ("cargo-bay", "item", "recipe", "technology"):
+    assert "landing-pad-unloading-bay" not in mod.get(kind, {})
 assert not any(e.get("recipe") == "submachine-gun" for e in mod["technology"]["military"]["effects"])
 
 items = {n: v for values in mod.values() for n, v in values.items() if "stack_size" in v}
@@ -59,8 +64,9 @@ for name, recipe in base["recipe"].items():
     if name in mod["recipe"]:
         assert recipe.get("surface_conditions") == mod["recipe"][name].get("surface_conditions"), name
 
-# Only steel chests lose their vanilla placement conditions.
-platform_entities = {"steel-chest"}
+# Platform storage and roboports are the only placement exceptions.
+platform_entities = {"steel-chest", "roboport", "active-provider-chest", "passive-provider-chest",
+                     "storage-chest", "buffer-chest", "requester-chest"}
 for kind, values in base.items():
     if kind in {"recipe", "item", "rail-planner"}:
         continue

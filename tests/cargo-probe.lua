@@ -1,4 +1,4 @@
--- Regression fixture only. A separate QA mod enables allow_unloading on cargo-bay.
+-- Platform hubs retain input/output; cargo bays expose only hub output.
 script.on_init(function()
   storage.arms, storage.cases = {}, {}
   for i, target in ipairs({"hub", "bay"}) do

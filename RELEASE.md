@@ -1,11 +1,23 @@
 Less grind. More factory.
 
-Version 1.0.8 restores vanilla science pack value: each pack is worth one
-research unit again. Labs keep their legendary research speed.
+Version 1.0.10 expands platform logistics and restores vanilla science-pack value.
+
+- **Roboports and logistic chests on platforms.** Power a roboport, add logistic
+  robots and move supplies between active provider, passive provider, storage,
+  buffer and requester chests.
+- **Unload through ordinary cargo bays at any distance.** Inserters and loaders
+  can unload the connected landing pad or platform hub anywhere along an
+  unbroken bay chain. Cargo bays keep their storage and cargo pod hatches.
+  Existing unloading bays, items, ghosts and blueprints convert automatically;
+  the separate unloading-bay recipe and research are removed.
+- **Vanilla science-pack value.** Each pack is worth one research unit again,
+  while labs keep their legendary research speed.
+
+Other features:
 
 - Fixed legendary stats with Quality disabled and normal enemy/world stats.
 - No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.
-- Platform steel chests and barrels for 20 fluids (excluding steam and fusion plasma).
+- Platform roboports, logistic chests, steel chests and barrels for 20 fluids (excluding steam and fusion plasma).
 - Four native 1×1 loaders at their matching splitter research.
 - A submachine gun and 100 yellow magazines at freeplay start and respawn.
 
