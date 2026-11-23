@@ -22,6 +22,8 @@ A focused Factorio: Space Age mod for more building and less repetition.
   limit along a connected bay chain. Cargo bays keep their storage and cargo
   hatches; the separate unloading bay and its research are merged into them.
 - Four compact Krastorio-style loaders, unlocked alongside their splitters.
+  Recipes match the corresponding splitter, using one previous-tier loader
+  for upgrades. Yellow needs no steel; green uses a foundry on Vulcanus.
   They need electricity and snap to adjacent machines and belts when placed.
   Press R over a placed loader to switch between loading and unloading.
 - Start and respawn with a submachine gun and 100 yellow magazines. No pistol.
@@ -54,7 +56,7 @@ baseline, and a separate legendary-quality reference.
 
 CI checks prototype invariants, technology reachability, recipe inputs,
 legendary stats, equipment, combat, mining, science consumption, platform
-storage and placement restrictions, loader transfers and real-player loader
+storage and placement restrictions, loader crafting/recycling recipes, loader transfers and real-player loader
 placement in every direction (including existing-loader repair), cargo-bay unloading
 beyond 59 tiles on planets and platforms, disconnection/reconnection, existing-save
 cargo-bay migration, barrel conservation,

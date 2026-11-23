@@ -39,7 +39,10 @@ If that sounds like your kind of Space Age, this mod might be for you too.
   to ordinary cargo bays when updating. Bays must still connect to the pad or
   hub through an unbroken chain, and allow unloading only.
 - **Compact loaders.** Four tiers of 1×1 loaders, adapted from Krastorio 2,
-  unlock alongside their matching splitters.
+  unlock alongside their matching splitters. Each recipe matches its splitter,
+  replacing the previous-tier splitter with one previous-tier loader. Yellow
+  loaders need no steel. Blue and green use lubricant, and green is crafted
+  in a foundry on Vulcanus, just like the turbo splitter.
 - **A better starting gun.** Start with a submachine gun and a full stack of
   yellow ammo. The SMG is craftable from the start; the pistol is gone.
 

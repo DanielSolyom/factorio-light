@@ -160,7 +160,7 @@ if __name__ == "__main__":
               "source_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip() or None,
               "status": "passed", "duration_seconds": round(time.monotonic() - started, 2),
               "checks": ["prototype-load", "legendary-reference", "world-invariants", "technology-graph",
-                         "removed-items", "barrel-conservation", "gleba-bootstrap", "native-loader-transfer", "loader-placement-and-repair",
+                         "removed-items", "barrel-conservation", "gleba-bootstrap", "loader-recipes-and-recycling", "native-loader-transfer", "loader-placement-and-repair",
                          "platform-chests", "platform-placement-restrictions", "platform-robot-logistics", "platform-fluid-supply", "no-spoilage", "freeplay-configuration", "starter-equipment", "quality-conflict",
                          "equipment-inventories", "combat-mining-research-reference", "food-and-status-effects",
                          "cargo-bay-unloading", "cargo-bay-migration"]}

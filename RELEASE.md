@@ -1,25 +1,16 @@
 Less grind. More factory.
 
-Version 1.0.10 expands platform logistics and restores vanilla science-pack value.
+Version 1.0.11 aligns all four loader recipes with their corresponding splitters.
+Upgrades use one previous-tier loader in place of the previous-tier splitter.
 
-- **Roboports and logistic chests on platforms.** Power a roboport, add logistic
-  robots and move supplies between active provider, passive provider, storage,
-  buffer and requester chests.
-- **Unload through ordinary cargo bays at any distance.** Inserters and loaders
-  can unload the connected landing pad or platform hub anywhere along an
-  unbroken bay chain. Cargo bays keep their storage and cargo pod hatches.
-  Existing unloading bays, items, ghosts and blueprints convert automatically;
-  the separate unloading-bay recipe and research are removed.
-- **Vanilla science-pack value.** Each pack is worth one research unit again,
-  while labs keep their legendary research speed.
+- **Yellow:** 4 transport belts, 5 iron plates and 5 electronic circuits. No steel.
+- **Red:** 1 yellow loader, 10 iron gears and 10 electronic circuits.
+- **Blue:** 1 red loader, 10 iron gears, 10 advanced circuits and 80 lubricant.
+- **Green:** 1 blue loader, 15 tungsten plates, 2 processing units and 80 lubricant.
 
-Other features:
-
-- Fixed legendary stats with Quality disabled and normal enemy/world stats.
-- No spoilage; hand-crafted mash nutrients and deliberate bacteria-to-ore production.
-- Platform roboports, logistic chests, steel chests and barrels for 20 fluids (excluding steam and fusion plasma).
-- Four native 1×1 loaders at their matching splitter research.
-- A submachine gun and 100 yellow magazines at freeplay start and respawn.
+Crafting times and allowed crafting machines match the splitters, including
+Vulcanus foundry crafting for green loaders. Recycling returns the matching
+components. Existing placed loaders keep working as before.
 
 Requires Factorio 2.1.24+ within the 2.1 series and Space Age. Intended for new
 games; disable Quality.

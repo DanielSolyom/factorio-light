@@ -159,6 +159,21 @@ for suffix, tech, speed in [("loader", "logistics", .03125), ("fast-loader", "lo
     name = "factorio-light-" + suffix
     assert mod["loader-1x1"][name]["speed"] == speed
     assert any(e.get("recipe") == name for e in techs[tech]["effects"])
+
+# Compare loader costs and crafting restrictions with the untouched game.
+# The generated recycling recipes must likewise return loader components.
+splitter_loaders = {"splitter": "factorio-light-loader", "fast-splitter": "factorio-light-fast-loader",
+                   "express-splitter": "factorio-light-express-loader", "turbo-splitter": "factorio-light-turbo-loader"}
+for splitter, loader in splitter_loaders.items():
+    for suffix in ("", "-recycling"):
+        expected = json.loads(json.dumps(base["recipe"][splitter + suffix]))
+        actual = mod["recipe"][loader + suffix]
+        for field in ("ingredients", "results"):
+            for item in expected[field]:
+                item["name"] = splitter_loaders.get(item["name"], item["name"])
+            assert actual[field] == expected[field], (loader, suffix, field)
+        for field in ("categories", "energy_required", "surface_conditions", "enabled", "allow_productivity"):
+            assert actual.get(field) == expected.get(field), (loader, suffix, field)
 print(f"PASS: {count} legendary engine values, {len(techs)} reachable technologies, {barrels} temperature-safe barrel pairs covering {len(fluids)} fluids")
 
 for name, fire in base["fire"].items():

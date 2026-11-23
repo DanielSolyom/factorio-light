@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.11
+Date: 2026-11-23
+  Changes:
+    - Loader recipes now match their corresponding splitter recipes, replacing the previous-tier splitter with one previous-tier loader.
+    - Yellow loaders use iron plates, electronic circuits and transport belts instead of steel. Crafting times, crafting machines and surface restrictions match the corresponding splitter.
+  Testing:
+    - Compared all four loader recipes and their recycling outputs with unmodified Space Age splitter recipes.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.10
 Date: 2026-11-23
   Features:

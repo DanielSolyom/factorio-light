@@ -2,27 +2,31 @@
 -- Native 1x1 loaders: no hidden inserters and no runtime transport script.
 local graphics = require("prototypes.loader-graphics")
 local tiers = {
-  {"loader", "transport-belt", "logistics", "loader", {249, 207, 70}},
-  {"fast-loader", "fast-transport-belt", "logistics-2", "fast-loader", {228, 24, 38}},
-  {"express-loader", "express-transport-belt", "logistics-3", "express-loader", {0, 180, 255}},
-  {"turbo-loader", "turbo-transport-belt", "turbo-transport-belt", "advanced-loader", {80, 210, 50}}
+  {"loader", "transport-belt", "logistics", "loader", {249, 207, 70}, "splitter"},
+  {"fast-loader", "fast-transport-belt", "logistics-2", "fast-loader", {228, 24, 38}, "fast-splitter"},
+  {"express-loader", "express-transport-belt", "logistics-3", "express-loader", {0, 180, 255}, "express-splitter"},
+  {"turbo-loader", "turbo-transport-belt", "turbo-transport-belt", "advanced-loader", {80, 210, 50}, "turbo-splitter"}
 }
 for i, tier in ipairs(tiers) do
   local name = "factorio-light-" .. tier[1]
   local belt = data.raw["transport-belt"][tier[2]]
   local icon = "__factorio-light-space-age__/graphics/loaders/" .. tier[4] .. ".png"
-  local ingredients = {{type = "item", name = tier[2], amount = 1},
-    {type = "item", name = "iron-gear-wheel", amount = 10}}
-  if i == 1 then
-    table.insert(ingredients, {type = "item", name = "steel-plate", amount = 2})
-  else
-    table.insert(ingredients, {type = "item", name = "factorio-light-" .. tiers[i-1][1], amount = 2})
+  -- Match the splitter's costs, crafting time, machines and surface restrictions.
+  -- Upgrades consume one previous-tier loader in place of its splitter.
+  local recipe = table.deepcopy(data.raw.recipe[tier[6]])
+  recipe.name = name
+  recipe.results = {{type = "item", name = name, amount = 1}}
+  if i > 1 then
+    for _, ingredient in ipairs(recipe.ingredients) do
+      if ingredient.name == tiers[i-1][6] then
+        ingredient.name = "factorio-light-" .. tiers[i-1][1]
+      end
+    end
   end
   data:extend({
     {type = "item", name = name, icon = icon, subgroup = "belt",
       order = "d[loader]-" .. i, place_result = name, stack_size = 50, weight = 20000},
-    {type = "recipe", name = name, energy_required = 2, enabled = false,
-      ingredients = ingredients, results = {{type = "item", name = name, amount = 1}}},
+    recipe,
     {type = "loader-1x1", name = name, icon = icon,
       flags = {"placeable-neutral", "player-creation"},
       minable = {mining_time = 0.25, result = name},
